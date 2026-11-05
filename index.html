@@ -4,57 +4,67 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SpellingWereld – spelling oefenen</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>✏️</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>🚀</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Bungee&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1b2a5c;--sky:#dff3ff;--sun:#ffc933;--coral:#ff5d73;--mint:#1fb98a;--grape:#7a5cff}
+:root{--bg:#4d4f97;--pan:#34327d;--line:#6c6fd6;--navy:#1a1146;--gold:#ffd34d}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;font:500 18px/1.4 'Baloo 2',system-ui,sans-serif;color:var(--ink);background:var(--sky) radial-gradient(circle at 1px 1px,#b9defa 1.5px,transparent 0) 0 0/28px 28px}
-main{max-width:980px;margin:0 auto;padding:20px}
-h2,h3{margin:.2em 0}
-.hero{text-align:center;padding:18px 0 26px}
-.tiles b{display:inline-grid;place-items:center;width:clamp(30px,6.6vw,54px);height:clamp(38px,8.4vw,66px);margin:3px;background:var(--c);color:#fff;border-radius:12px;font-size:clamp(22px,5vw,38px);font-weight:800;box-shadow:0 5px 0 rgba(27,42,92,.35)}
-.tiles b:nth-child(odd){transform:rotate(-3deg)}.tiles b:nth-child(even){transform:rotate(3deg)}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
-.p{background:#fff;border:3px solid var(--ink);border-radius:22px;padding:22px;box-shadow:0 7px 0 var(--ink);margin-bottom:8px}
-label{font-weight:700;display:block}
-input,textarea{width:100%;font:inherit;padding:10px 14px;margin:4px 0 12px;border:3px solid var(--ink);border-radius:14px;background:#fff;color:var(--ink)}
-:focus-visible{outline:4px solid var(--grape);outline-offset:2px}
-.b{font:inherit;font-weight:800;padding:9px 20px;border:3px solid var(--ink);border-radius:14px;background:var(--sun);color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--ink)}
-.b:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
-.b.o{background:#fff}.b.r{background:var(--coral);color:#fff}.b.g{background:var(--mint);color:#fff}
+body{margin:0;min-height:100vh;font:600 18px/1.4 'Baloo 2',system-ui,sans-serif;color:#fff;background:var(--bg) repeating-linear-gradient(135deg,transparent 0 46px,rgba(26,17,70,.12) 46px 50px)}
+header{text-align:center;padding:16px 10px 18px;background:radial-gradient(circle at 88% 130%,#9cc0ff 0 150px,transparent 151px),radial-gradient(#fff 1px,transparent 1.5px) 0 0/90px 90px,linear-gradient(100deg,#1a1042,#2a1a63 60%,#3e2a80)}
+.logo{font:400 clamp(30px,7vw,64px) Bungee,Impact,sans-serif;margin:0 0 8px;background:linear-gradient(#8af0ff,#1b6dff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 3px 0 #f59f00)}
+.logo span{-webkit-text-fill-color:initial;margin-left:6px}
+.nb,.b{font:400 clamp(13px,2.6vw,18px) Bungee,Impact,sans-serif;color:#fff;border:0;cursor:pointer;background:linear-gradient(#1b4fc0,#10286e);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px))}
+.nb{padding:10px 22px;margin:4px}
+.nb.on,.b{background:linear-gradient(#52d6ff,#1a7bff)}
+.b{padding:11px 22px;margin:2px 0}
+.b.o{background:linear-gradient(#1b4fc0,#10286e)}.b.r{background:linear-gradient(#ff8a9a,#e03355)}.b.g{background:linear-gradient(#5be9b9,#16a37a)}
+.nb:focus-visible,.b:focus-visible{background:#7a5cff}
 .b:disabled{opacity:.5;cursor:not-allowed}
-.msg{min-height:1.4em;margin:10px 0 0;font-weight:700;color:var(--coral)}.msg.ok{color:var(--mint)}
+.pts{display:inline-block;margin-left:8px;padding:6px 14px;border-radius:99px;background:var(--navy);color:var(--gold);font-weight:800}
+main{max-width:1000px;margin:0 auto;padding:10px 20px 40px}
+.h{font:400 clamp(24px,5vw,44px) Bungee,Impact,sans-serif;text-align:center;margin:26px 0 20px;background:linear-gradient(#ffe066,#ff8a1f);-webkit-background-clip:text;background-clip:text;color:transparent}
+h2,h3{margin:.2em 0;font-family:Bungee,Impact,sans-serif;font-weight:400;color:var(--gold)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.p{background:var(--pan);border:3px solid var(--line);padding:22px;margin-bottom:8px;box-shadow:0 8px 0 rgba(26,17,70,.5)}
+label{font-weight:800;display:block}
+input,textarea{width:100%;font:inherit;padding:10px 14px;margin:4px 0 12px;border:3px solid var(--line);border-radius:10px;background:#fff;color:var(--navy)}
+:focus-visible{outline:4px solid var(--gold);outline-offset:2px}
+.msg{min-height:1.4em;margin:10px 0 0;font-weight:800;color:#ffa0ae}.msg.ok{color:#6ff0c4}
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
-.sub{margin:0 0 14px;opacity:.8}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
-.card{font:inherit;text-align:left;cursor:pointer;color:var(--ink);border:3px solid var(--ink);border-radius:20px;padding:18px;box-shadow:0 6px 0 var(--ink);display:flex;flex-direction:column;gap:4px;font-size:1.2em;font-weight:800}
-.card:nth-child(4n+1){background:var(--sun)}.card:nth-child(4n+2){background:#c9bfff}.card:nth-child(4n+3){background:#9ff0d4}.card:nth-child(4n){background:#ffc0c8}
-.card small{font-size:.7em;font-weight:600}
-.card:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+.sub{margin:0 0 14px;opacity:.85}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:18px}
+.card{font:inherit;font-weight:800;text-align:left;cursor:pointer;color:#fff;background:var(--pan);border:3px solid var(--line);padding:16px;box-shadow:0 7px 0 rgba(26,17,70,.5);display:flex;flex-direction:column;gap:6px;font-size:1.15em}
+.card:hover{border-color:var(--gold)}.card small{font-size:.75em;font-weight:600;opacity:.85}
+.pb{position:relative;height:22px;background:var(--navy);border-radius:99px;overflow:hidden;width:100%}
+.pb i{display:block;height:100%;background:linear-gradient(#ffe066,#ff9d1f)}
+.pb span{position:absolute;inset:0;display:grid;place-items:center;font-size:13px;font-weight:800;text-shadow:0 1px 2px #000}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
-.chip{display:inline-flex;gap:8px;align-items:center;background:#eaf6ff;border:2px solid var(--ink);border-radius:99px;padding:2px 6px 2px 14px}
-.chip button{border:0;background:var(--coral);color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;font-weight:800}
-.row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:2px dashed #b9defa}
-.empty{background:#fff;border:3px dashed var(--ink);border-radius:20px;padding:22px;text-align:center}
-.stage{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:22px;box-shadow:0 7px 0 var(--ink);text-align:center;min-height:70vh;display:flex;flex-direction:column;align-items:center}
+.chip{display:inline-flex;gap:8px;align-items:center;background:var(--navy);border:2px solid var(--line);border-radius:99px;padding:2px 6px 2px 14px}
+.chip button{border:0;background:#e03355;color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;font-weight:800}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:2px dashed var(--line)}
+.empty{border:3px dashed var(--line);padding:22px;text-align:center}
+.stage{background:var(--pan);border:3px solid var(--line);padding:22px;text-align:center;min-height:70vh;display:flex;flex-direction:column;align-items:center;gap:6px}
 .stage .bar{width:100%}
-.stage:fullscreen{background:var(--sky);border:0;border-radius:0;box-shadow:none;justify-content:center;min-height:100vh}
-.ear{font-size:clamp(64px,14vw,120px);width:clamp(120px,26vw,200px);height:clamp(120px,26vw,200px);border-radius:50%;border:4px solid var(--ink);background:var(--sun);box-shadow:0 8px 0 var(--ink);cursor:pointer;margin:18px 0 10px}
-.ear:active{transform:translateY(5px);box-shadow:0 3px 0 var(--ink)}
+.stage:fullscreen{background:linear-gradient(#1a1042,#3e2a80);border:0;justify-content:center;min-height:100vh}
+.ear{font-size:clamp(60px,13vw,110px);width:clamp(120px,26vw,190px);height:clamp(120px,26vw,190px);border-radius:50%;border:5px solid #fff;background:radial-gradient(circle at 35% 30%,#ffe98a,#ff9d1f);box-shadow:0 8px 0 rgba(0,0,0,.35);cursor:pointer;margin:14px 0 8px;user-select:none}
+.ear:active{transform:translateY(5px)}
 .stage form{width:min(520px,100%)}
 .stage input{font-size:1.8em;text-align:center}
-#fb{font-size:1.5em;font-weight:800;min-height:1.6em}#fb.good{color:var(--mint)}#fb.bad{color:var(--coral)}
-pre{background:#eaf6ff;border:2px solid var(--ink);border-radius:12px;padding:12px;overflow:auto;font-size:14px}
-.score{font-size:clamp(40px,9vw,80px);font-weight:800;margin:20px 0}
+#fb{font-size:1.5em;font-weight:800;min-height:1.6em}#fb.good{color:#6ff0c4}#fb.bad{color:#ffa0ae}
+pre{background:var(--navy);border:2px solid var(--line);padding:12px;overflow:auto;font-size:14px}
+.score{font:400 clamp(36px,8vw,72px) Bungee,Impact,sans-serif;color:var(--gold);margin:14px 0}
+.shop{display:flex;flex-wrap:wrap;gap:10px;margin:8px 0 16px}
+.it{font:inherit;font-weight:800;min-width:74px;padding:8px 10px;border:3px solid var(--line);background:var(--navy);color:#fff;cursor:pointer;border-radius:12px;font-size:1.3em}
+.it small{display:block;font-size:.55em;color:var(--gold)}.it.on{border-color:var(--gold);background:#4a3fa8}
 </style>
 </head>
 <body>
+<header><h1 class="logo">SpellingWereld<span>🚀</span></h1><nav id="nv"></nav></header>
 <main id="v"><p class="sub">Laden…</p></main>
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
 import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
-import {getFirestore,collection,doc,addDoc,updateDoc,deleteDoc,query,where,limit,getDocs,onSnapshot} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+import {getFirestore,collection,doc,addDoc,setDoc,getDoc,updateDoc,deleteDoc,query,where,limit,getDocs,onSnapshot} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
 
 const app=initializeApp({apiKey:"AIzaSyB2eMl3UIVUpTIFLJE_uRU54jOyQnOMvS4",authDomain:"spellingwereld.firebaseapp.com",projectId:"spellingwereld",storageBucket:"spellingwereld.firebasestorage.app",messagingSenderId:"152537815183",appId:"1:152537815183:web:31c484cfd23d0e6547f8fa",measurementId:"G-G9SV6316VJ"});
 import("https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js").then(m=>m.getAnalytics(app)).catch(()=>{});
@@ -63,6 +73,7 @@ const $=s=>document.querySelector(s),V=$('#v');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const say=(s,t,ok)=>{const e=$(s);if(e){e.textContent=t;e.className='msg'+(ok?' ok':'')}};
 const list=s=>s.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
+const bar=(a,b)=>`<div class="pb"><i style="width:${b?Math.min(100,a/b*100):0}%"></i><span>${a} / ${b}</span></div>`;
 const AE={'auth/invalid-credential':'E-mail of wachtwoord klopt niet.','auth/email-already-in-use':'Dit e-mailadres heeft al een account.','auth/weak-password':'Kies een wachtwoord van minstens 6 tekens.','auth/invalid-email':'Dit e-mailadres is niet geldig.','auth/operation-not-allowed':'E-mail inloggen staat nog uit in Firebase (Authentication → Sign-in method).','auth/unauthorized-domain':'Dit domein staat nog niet bij Firebase → Authentication → Settings → Authorized domains.','auth/network-request-failed':'Geen verbinding. Probeer het nog een keer.','auth/too-many-requests':'Te veel pogingen. Probeer het later opnieuw.'};
 const RULES=`rules_version = '2';
 service cloud.firestore {
@@ -74,27 +85,50 @@ service cloud.firestore {
       allow create: if request.auth != null && request.resource.data.teacherId == request.auth.uid;
       allow update, delete: if request.auth != null && resource.data.teacherId == request.auth.uid;
     }
+    match /results/{id} {
+      allow get: if true;
+      allow create, update: if request.resource.data.keys().hasOnly(['classId','name','tasks','points','owned','eq'])
+        && request.resource.data.points is number && request.resource.data.points >= 0
+        && request.resource.data.points < 100000;
+    }
   }
 }`;
 function help(err){
   let p=$('#help');if(!p){p=document.createElement('section');p.id='help';p.className='p';p.style.marginTop='22px';V.appendChild(p)}
-  p.innerHTML=`<h3>Firebase is nog niet helemaal klaar (${esc((err&&err.code)||'fout')})</h3><p>Docent: controleer dit in de Firebase-console.</p><ol><li>Authentication → Sign-in method → zet <b>E-mail/wachtwoord</b> aan.</li><li>Firestore Database → <b>Database maken</b>.</li><li>Firestore Database → Regels → plak dit en klik op Publiceren:</li></ol><pre>${esc(RULES)}</pre><button class="b o" type="button" id="cp2">Regels kopiëren</button>`;
+  p.innerHTML=`<h3>Firebase is nog niet klaar (${esc((err&&err.code)||'fout')})</h3><p>Docent: controleer dit in de Firebase-console.</p><ol><li>Authentication → Sign-in method → zet <b>E-mail/wachtwoord</b> aan.</li><li>Firestore Database → <b>Database maken</b>.</li><li>Firestore Database → Regels → plak dit en klik op Publiceren:</li></ol><pre>${esc(RULES)}</pre><button class="b o" type="button" id="cp2">Regels kopiëren</button>`;
   $('#cp2').onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(RULES);
   p.scrollIntoView({behavior:'smooth'});
 }
 const up=(c,d)=>updateDoc(doc(db,'classes',c.id),d).catch(help);
 const LK='spw_lock',lock=()=>{try{return JSON.parse(localStorage.getItem(LK)||'{}')}catch(e){return{}}};
-let user=null,classes=[],sel=null,stud=null,unsub=null,unsubS=null;
+let user=null,classes=[],sel=null,stud=null,me=null,cur='home',unsub=null,unsubS=null;
+
+/* ---------- Monster ---------- */
+const ITEMS=[['c0','c','#7a5cff',0],['c1','c','#1fb98a',20],['c2','c','#ff5d73',20],['c3','c','#f59f00',20],['c4','c','#2a8cff',20],['h1','h','🎩',30],['h2','h','👑',50],['h3','h','🎀',25],['h4','h','🎃',40],['g1','g','😎',30],['g2','g','🤓',30]];
+const monster=(e,z=180)=>`<svg viewBox="0 0 200 200" width="${z}" height="${z}" role="img" aria-label="Jouw monster"><path d="M100 40V10" stroke="#fff" stroke-width="5"/><circle cx="100" cy="10" r="9" fill="#ffc933"/><ellipse cx="100" cy="118" rx="76" ry="70" fill="${e.c}"/><ellipse cx="75" cy="108" rx="17" ry="20" fill="#fff"/><ellipse cx="125" cy="108" rx="17" ry="20" fill="#fff"/><circle cx="78" cy="111" r="8" fill="#1a1146"/><circle cx="122" cy="111" r="8" fill="#1a1146"/><path d="M70 148Q100 178 130 148" stroke="#1a1146" stroke-width="6" fill="none" stroke-linecap="round"/>${e.g?`<text x="100" y="128" font-size="58" text-anchor="middle">${e.g}</text>`:''}${e.h?`<text x="100" y="54" font-size="62" text-anchor="middle">${e.h}</text>`:''}</svg>`;
+const rid=()=>stud.cls.id+'_'+stud.name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+const save=()=>setDoc(doc(db,'results',rid()),{classId:stud.cls.id,name:stud.name,...me}).catch(()=>{});
+
+/* ---------- Navigatie ---------- */
+function navi(){
+  const it=stud?[['tasks','Opdrachten'],['monster','Monster'],['out','Uitloggen']]:user?[['home','Klassen'],['out','Uitloggen']]:[['home','Home'],['klas','Klas'],['doc','Docenten']];
+  $('#nv').innerHTML=it.map(([k,n])=>`<button class="nb${k==cur?' on':''}" data-n="${k}">${n}</button>`).join('')+(stud?`<span class="pts">⭐ ${me.points}</span>`:'');
+}
+$('#nv').onclick=e=>{
+  const k=e.target.dataset.n;if(!k)return;
+  if(k=='out'){stud?home():signOut(auth)}
+  else if(stud){k=='monster'?shop():tasks()}
+  else if(user){sel=null;teacher()}
+  else{home();if(k!='home')$(k=='klas'?'#sn':'#te').focus()}
+};
 
 /* ---------- Home ---------- */
 function home(){
-  stud=null;unsubS&&unsubS();unsubS=null;
-  const cols=['#ff5d73','#7a5cff','#1fb98a','#f59f00','#2a8cff'];
-  V.innerHTML=`<section class="hero"><div class="tiles" aria-label="SpellingWereld">${[...'SpellingWereld'].map((c,i)=>`<b style="--c:${cols[i%5]}">${c}</b>`).join('')}</div><p>Hoor het woord. Typ het goed. Word een spelling-kampioen!</p></section>
-  <div class="two">
-   <section class="p"><h2>Ik ben leerling</h2><p class="sub">Vul je naam en het wachtwoord van je klas in.</p>
-    <form id="sf"><label for="sn">Jouw naam</label><input id="sn" required autocomplete="off"><label for="sp">Klaswachtwoord</label><input id="sp" type="password" required autocomplete="off"><button class="b" id="sb">Naar mijn opdrachten</button><p class="msg" id="sm" role="alert"></p></form></section>
-   <section class="p"><h2>Ik ben docent</h2><p class="sub">Maak klassen, leerlingen en opdrachten aan.</p>
+  stud=null;me=null;cur='home';unsubS&&unsubS();unsubS=null;navi();
+  V.innerHTML=`<h2 class="h">Wat wil je gaan doen?</h2><div class="two">
+   <section class="p"><h2>Leerling</h2><p class="sub">Vul je naam en het wachtwoord van je klas in.</p>
+    <form id="sf"><label for="sn">Jouw naam</label><input id="sn" required autocomplete="off"><label for="sp">Klaswachtwoord</label><input id="sp" type="password" required autocomplete="off"><button class="b" id="sb">Starten</button><p class="msg" id="sm" role="alert"></p></form></section>
+   <section class="p"><h2>Docent</h2><p class="sub">Maak klassen, leerlingen en opdrachten aan.</p>
     <form id="tf"><label for="te">E-mailadres</label><input id="te" type="email" required autocomplete="email"><label for="tp">Wachtwoord</label><input id="tp" type="password" required minlength="6" autocomplete="current-password"><button class="b" value="l">Inloggen</button> <button class="b o" value="r">Account maken</button><p class="msg" id="tm" role="alert"></p></form></section>
   </div>`;
   if(lock().until>Date.now())wait();
@@ -112,7 +146,9 @@ async function studentLogin(){
     const s=await getDocs(query(collection(db,'classes'),where('pw','==',p),limit(1))),c=s.docs[0];
     if(c&&(c.data().students||[]).some(x=>x.toLowerCase()===n.toLowerCase())){
       localStorage.removeItem(LK);stud={name:n,cls:{id:c.id,...c.data()}};
-      unsubS=onSnapshot(doc(db,'classes',c.id),d=>{if(stud&&d.exists()){stud.cls={id:d.id,...d.data()};if(!$('#st'))tasks()}},()=>{});
+      const r=await getDoc(doc(db,'results',rid())).catch(()=>null),d=r&&r.exists()?r.data():{};
+      me={tasks:d.tasks||{},points:d.points||0,owned:d.owned||['c0'],eq:d.eq||{c:'#7a5cff',h:'',g:''}};
+      unsubS=onSnapshot(doc(db,'classes',c.id),x=>{if(stud&&x.exists()){stud.cls={id:x.id,...x.data()};if(cur=='tasks')tasks()}},()=>{});
       return tasks();
     }
   }catch(e){say('#sm','Inloggen lukt nog niet. Vraag je juf of meester om de instellingen te controleren.');return help(e)}
@@ -125,24 +161,49 @@ async function teacherAuth(reg){
   catch(e){say('#tm',AE[e.code]||'Er ging iets mis. Probeer het opnieuw.');if(e.code=='auth/operation-not-allowed')help(e)}
 }
 
-/* ---------- Leerling ---------- */
+/* ---------- Leerling: taken, monster, oefenen ---------- */
 function tasks(){
-  const c=stud.cls,T=c.tasks||[];
-  V.innerHTML=`<div class="bar"><h2>Hoi ${esc(stud.name)}! 👋</h2><button class="b o" data-a="out">Uitloggen</button></div><p class="sub">Klas ${esc(c.name)}</p>
-  ${T.length?`<div class="grid">${T.map((t,i)=>`<button class="card" data-a="play" data-i="${i}">${esc(t.title)}<small>${t.words.length} woorden</small></button>`).join('')}</div>`:'<p class="empty">Er zijn nog geen opdrachten. Vraag het aan je juf of meester.</p>'}`;
+  cur='tasks';navi();const c=stud.cls,T=c.tasks||[];
+  V.innerHTML=`<div class="bar"><div><h2>Hoi ${esc(stud.name)}!</h2><p class="sub">Klas ${esc(c.name)}</p></div><button class="b o" data-a="shop" style="display:flex;align-items:center;gap:8px">${monster(me.eq,56)} Mijn monster</button></div>
+  ${T.length?`<div class="grid">${T.map((t,i)=>{const g=(me.tasks[t.id]||[]).filter(w=>t.words.includes(w)).length,pc=Math.round(g/t.words.length*100);return `<button class="card" data-a="play" data-i="${i}">${esc(t.title)}${bar(g,t.words.length)}<small>${pc==100?'Af! Je mag opnieuw oefenen':pc+'% klaar'}</small></button>`}).join('')}</div>`:'<p class="empty">Er zijn nog geen opdrachten. Vraag het aan je juf of meester.</p>'}`;
+}
+function shop(){
+  cur='monster';navi();
+  const btn=([id,t,v,p])=>{const own=me.owned.includes(id),on=me.eq[t]==v;return `<button class="it${on?' on':''}" data-a="buy" data-id="${id}" aria-label="${own?'Gebruik':'Koop'} ${v}">${t=='c'?`<span style="color:${v}">⬤</span>`:v}<small>${own?(on?'aan':'van mij'):'⭐ '+p}</small></button>`};
+  const row=(t,off)=>`<div class="shop">${t=='c'?'':`<button class="it${me.eq[t]?'':' on'}" data-a="off" data-t="${t}">✖<small>${off}</small></button>`}${ITEMS.filter(x=>x[1]==t).map(btn).join('')}</div>`;
+  V.innerHTML=`<h2 class="h">Mijn monster</h2><div class="two"><section class="p" style="text-align:center">${monster(me.eq,230)}<div class="score">⭐ ${me.points}</div><p class="sub">Verdien punten met goede woorden en het bonusspel.</p></section>
+  <section class="p"><h3>Kleur</h3>${row('c')}<h3>Hoed</h3>${row('h','geen')}<h3>Bril</h3>${row('g','geen')}<p class="msg" id="sm" role="alert"></p></section></div>`;
 }
 function practice(t){
-  const W=[...t.words].sort(()=>Math.random()-.5);let i=0,ok=0,done=false;
+  const got=(me.tasks[t.id]=(me.tasks[t.id]||[]).filter(w=>t.words.includes(w)));
+  let pool=t.words.filter(w=>!got.includes(w));if(!pool.length)pool=[...t.words];
+  const W=pool.sort(()=>Math.random()-.5),half=Math.ceil(W.length/2);
+  let i=0,ok=0,done=false,played=W.length<2,gain=0;
   V.innerHTML='<div class="stage" id="st"></div>';const st=$('#st');
   const speak=()=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(W[i]);u.lang='nl-NL';u.rate=.8;const v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith('nl'));if(v)u.voice=v;speechSynthesis.speak(u)};
   const leave=()=>{speechSynthesis.cancel();document.fullscreenElement&&document.exitFullscreen();tasks()};
+  const game=()=>{
+    let n=0,left=10,run=false,tm;
+    const hit=()=>{n++;$('#gs').textContent=n;if(!run){run=true;tm=setInterval(tick,1000)}};
+    const kd=e=>{if(e.key!=' '&&e.key!='Enter'&&e.key.length<3){e.preventDefault();hit()}};
+    const tick=()=>{left--;$('#gt').textContent=`Nog ${left} seconden`;if(left<=0)fin()};
+    const fin=()=>{
+      clearInterval(tm);document.removeEventListener('keydown',kd);
+      const pts=Math.min(50,Math.floor(n/2));me.points+=pts;gain+=pts;save();navi();
+      st.innerHTML=`<h2 class="h">Goed gedaan!</h2><div class="score">${n} keer getikt</div><p>Je wint ⭐ ${pts} punten.</p><button class="b" id="go">Verder met je opdracht</button>`;
+      $('#go').onclick=step;$('#go').focus();
+    };
+    st.innerHTML=`<h2 class="h">Halverwege! Bonusspel</h2><p>Tik zo vaak je kan op de knop of op je toetsenbord. Je hebt 10 seconden.</p><div class="score" id="gs">0</div><button class="ear" id="gb" type="button" aria-label="Tikken">👾</button><p id="gt">Tik om te starten</p>`;
+    $('#gb').onclick=hit;document.addEventListener('keydown',kd);
+  };
   const step=()=>{
     if(i>=W.length){
-      st.innerHTML=`<h2>Klaar met ${esc(t.title)}!</h2><div class="score">${ok} van ${W.length} goed ${ok==W.length?'🏆':ok>=W.length/2?'⭐':'💪'}</div><button class="b" id="back">Terug naar opdrachten</button>`;
+      st.innerHTML=`<h2 class="h">Klaar met ${esc(t.title)}!</h2><div class="score">${ok} van ${W.length} goed ${ok==W.length?'🏆':ok>=W.length/2?'⭐':'💪'}</div>${bar(got.length,t.words.length)}<p>Je verdiende ⭐ ${gain} punten.</p><button class="b" id="back">Terug naar opdrachten</button>`;
       $('#back').onclick=leave;return;
     }
+    if(i==half&&!played){played=true;return game()}
     done=false;
-    st.innerHTML=`<div class="bar"><b>${esc(t.title)}</b><span>Woord ${i+1} van ${W.length}</span><span><button class="b o" id="fs" type="button">⛶ Volledig scherm</button> <button class="b o" id="x" type="button">Stoppen</button></span></div>
+    st.innerHTML=`<div class="bar"><b>${esc(t.title)}</b><span>Woord ${i+1} van ${W.length}</span><span><button class="b o" id="fs" type="button">⛶ Volledig scherm</button> <button class="b o" id="x" type="button">Stoppen</button></span></div>${bar(got.length,t.words.length)}
     <button class="ear" id="hr" type="button" aria-label="Luister naar het woord">🔊</button><p class="sub">Klik op de luidspreker en typ wat je hoort.</p>
     <form id="af"><input id="ai" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Typ het woord"><button class="b g" id="ab">Controleren</button></form><p id="fb" role="status"></p>`;
     $('#hr').onclick=speak;$('#x').onclick=leave;
@@ -150,10 +211,12 @@ function practice(t){
     $('#af').onsubmit=e=>{
       e.preventDefault();
       if(done){i++;return step()}
-      done=true;const good=$('#ai').value.trim().toLowerCase()===W[i].toLowerCase(),k=i,fb=$('#fb');
+      done=true;const w=W[i],good=$('#ai').value.trim().toLowerCase()===w.toLowerCase(),k=i,fb=$('#fb');
       $('#ai').readOnly=true;$('#ab').textContent='Volgende';
-      if(good){ok++;fb.className='good';fb.textContent='Goed zo! ✓';setTimeout(()=>{if(i===k&&st.isConnected){i++;step()}},900)}
-      else{fb.className='bad';fb.innerHTML=`Het woord is: <b>${esc(W[i])}</b>`}
+      if(good){ok++;fb.className='good';fb.textContent='Goed zo! ✓';
+        if(!got.includes(w)){got.push(w);me.points+=2;gain+=2;save();navi()}
+        setTimeout(()=>{if(i===k&&st.isConnected&&$('#fb')){i++;step()}},900)}
+      else{fb.className='bad';fb.innerHTML=`Het woord is: <b>${esc(w)}</b>`}
     };
     $('#ai').focus();speak();
   };
@@ -162,9 +225,9 @@ function practice(t){
 
 /* ---------- Docent ---------- */
 function teacher(){
-  const c=classes.find(x=>x.id===sel);
+  cur='home';navi();const c=classes.find(x=>x.id===sel);
   if(!c){sel=null;
-    V.innerHTML=`<div class="bar"><h2>Mijn klassen</h2><span>${esc(user.email)} <button class="b o" data-a="out">Uitloggen</button></span></div>
+    V.innerHTML=`<h2 class="h">Mijn klassen</h2><p class="sub" style="text-align:center">Ingelogd als ${esc(user.email)}</p>
     ${classes.length?`<div class="grid">${classes.map(k=>`<button class="card" data-a="open" data-id="${k.id}">${esc(k.name)}<small>${(k.students||[]).length} leerlingen · ${(k.tasks||[]).length} opdrachten</small></button>`).join('')}</div>`:'<p class="empty">Je hebt nog geen klas. Maak hieronder je eerste klas aan.</p>'}
     <section class="p" style="margin-top:22px"><h3>Nieuwe klas</h3><form id="nc"><label for="cn">Klasnaam</label><input id="cn" required placeholder="bijv. Groep 5A"><label for="cp">Klaswachtwoord (de leerlingen typen dit in)</label><input id="cp" required minlength="4"><button class="b">Klas maken</button><p class="msg" id="cm" role="alert"></p></form></section>`;
     return;
@@ -196,8 +259,8 @@ V.onsubmit=async e=>{
     }catch(err){say('#cm','Opslaan is niet gelukt.');help(err)}
   }
   else if(id=='ns'&&c){
-    const cur=c.students||[],add=list($('#nn').value).filter(n=>!cur.some(x=>x.toLowerCase()==n.toLowerCase()));
-    if(add.length)up(c,{students:[...cur,...add]});else $('#nn').value='';
+    const cur2=c.students||[],add=list($('#nn').value).filter(n=>!cur2.some(x=>x.toLowerCase()==n.toLowerCase()));
+    if(add.length)up(c,{students:[...cur2,...add]});else $('#nn').value='';
   }
   else if(id=='nt'&&c){
     const w=list($('#tw').value);
@@ -207,8 +270,17 @@ V.onsubmit=async e=>{
 V.onclick=async e=>{
   const b=e.target.closest('[data-a]');if(!b)return;
   const a=b.dataset.a,i=+b.dataset.i,c=classes.find(x=>x.id===sel);
-  if(a=='out'){if(stud)home();else signOut(auth)}
-  else if(a=='play')practice(stud.cls.tasks[i]);
+  if(a=='play')practice(stud.cls.tasks[i]);
+  else if(a=='shop')shop();
+  else if(a=='buy'){
+    const it=ITEMS.find(x=>x[0]==b.dataset.id),[id,t,v,p]=it;
+    if(!me.owned.includes(id)){
+      if(me.points<p){shop();return say('#sm',`Je hebt nog ${p-me.points} punten nodig.`)}
+      me.points-=p;me.owned.push(id);
+    }
+    me.eq[t]=v;save();shop();
+  }
+  else if(a=='off'){me.eq[b.dataset.t]='';save();shop()}
   else if(a=='open'){sel=b.dataset.id;teacher()}
   else if(a=='back'){sel=null;teacher()}
   else if(a=='rs')up(c,{students:c.students.filter((_,j)=>j!=i)});
