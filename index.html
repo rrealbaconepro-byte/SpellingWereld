@@ -13,7 +13,6 @@ body{margin:0;min-height:100vh;font:500 18px/1.4 'Baloo 2',system-ui,sans-serif;
 main{max-width:980px;margin:0 auto;padding:20px}
 h2,h3{margin:.2em 0}
 .hero{text-align:center;padding:18px 0 26px}
-.hero p{margin:10px 0 0;font-size:1.15em}
 .tiles b{display:inline-grid;place-items:center;width:clamp(30px,6.6vw,54px);height:clamp(38px,8.4vw,66px);margin:3px;background:var(--c);color:#fff;border-radius:12px;font-size:clamp(22px,5vw,38px);font-weight:800;box-shadow:0 5px 0 rgba(27,42,92,.35)}
 .tiles b:nth-child(odd){transform:rotate(-3deg)}.tiles b:nth-child(even){transform:rotate(3deg)}
 .two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
@@ -25,12 +24,11 @@ input,textarea{width:100%;font:inherit;padding:10px 14px;margin:4px 0 12px;borde
 .b:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
 .b.o{background:#fff}.b.r{background:var(--coral);color:#fff}.b.g{background:var(--mint);color:#fff}
 .b:disabled{opacity:.5;cursor:not-allowed}
-.msg{min-height:1.4em;margin:10px 0 0;font-weight:700;color:var(--coral)}
-.msg.ok{color:var(--mint)}
+.msg{min-height:1.4em;margin:10px 0 0;font-weight:700;color:var(--coral)}.msg.ok{color:var(--mint)}
 .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
 .sub{margin:0 0 14px;opacity:.8}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
-.card{font:inherit;text-align:left;cursor:pointer;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:20px;padding:18px;box-shadow:0 6px 0 var(--ink);display:flex;flex-direction:column;gap:4px;font-size:1.2em;font-weight:800}
+.card{font:inherit;text-align:left;cursor:pointer;color:var(--ink);border:3px solid var(--ink);border-radius:20px;padding:18px;box-shadow:0 6px 0 var(--ink);display:flex;flex-direction:column;gap:4px;font-size:1.2em;font-weight:800}
 .card:nth-child(4n+1){background:var(--sun)}.card:nth-child(4n+2){background:#c9bfff}.card:nth-child(4n+3){background:#9ff0d4}.card:nth-child(4n){background:#ffc0c8}
 .card small{font-size:.7em;font-weight:600}
 .card:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
@@ -46,8 +44,7 @@ input,textarea{width:100%;font:inherit;padding:10px 14px;margin:4px 0 12px;borde
 .ear:active{transform:translateY(5px);box-shadow:0 3px 0 var(--ink)}
 .stage form{width:min(520px,100%)}
 .stage input{font-size:1.8em;text-align:center}
-#fb{font-size:1.5em;font-weight:800;min-height:1.6em}
-#fb.good{color:var(--mint)}#fb.bad{color:var(--coral)}
+#fb{font-size:1.5em;font-weight:800;min-height:1.6em}#fb.good{color:var(--mint)}#fb.bad{color:var(--coral)}
 pre{background:#eaf6ff;border:2px solid var(--ink);border-radius:12px;padding:12px;overflow:auto;font-size:14px}
 .score{font-size:clamp(40px,9vw,80px);font-weight:800;margin:20px 0}
 </style>
@@ -65,6 +62,8 @@ const auth=getAuth(app),db=getFirestore(app);
 const $=s=>document.querySelector(s),V=$('#v');
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const say=(s,t,ok)=>{const e=$(s);if(e){e.textContent=t;e.className='msg'+(ok?' ok':'')}};
+const list=s=>s.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
+const AE={'auth/invalid-credential':'E-mail of wachtwoord klopt niet.','auth/email-already-in-use':'Dit e-mailadres heeft al een account.','auth/weak-password':'Kies een wachtwoord van minstens 6 tekens.','auth/invalid-email':'Dit e-mailadres is niet geldig.','auth/operation-not-allowed':'E-mail inloggen staat nog uit in Firebase (Authentication → Sign-in method).','auth/unauthorized-domain':'Dit domein staat nog niet bij Firebase → Authentication → Settings → Authorized domains.','auth/network-request-failed':'Geen verbinding. Probeer het nog een keer.','auth/too-many-requests':'Te veel pogingen. Probeer het later opnieuw.'};
 const RULES=`rules_version = '2';
 service cloud.firestore {
   match /databases/{db}/documents {
@@ -84,11 +83,10 @@ function help(err){
   p.scrollIntoView({behavior:'smooth'});
 }
 const up=(c,d)=>updateDoc(doc(db,'classes',c.id),d).catch(help);
-const AE={'auth/invalid-credential':'E-mail of wachtwoord klopt niet.','auth/email-already-in-use':'Dit e-mailadres heeft al een account.','auth/weak-password':'Kies een wachtwoord van minstens 6 tekens.','auth/invalid-email':'Dit e-mailadres is niet geldig.','auth/operation-not-allowed':'E-mail inloggen staat nog uit in Firebase (Authentication → Sign-in method).','auth/unauthorized-domain':'Dit domein staat nog niet bij Firebase → Authentication → Settings → Authorized domains.','auth/network-request-failed':'Geen verbinding. Probeer het nog een keer.','auth/too-many-requests':'Te veel pogingen. Probeer het later opnieuw.'};
 const LK='spw_lock',lock=()=>{try{return JSON.parse(localStorage.getItem(LK)||'{}')}catch(e){return{}}};
 let user=null,classes=[],sel=null,stud=null,unsub=null,unsubS=null;
 
-/* ---------- Home: leerling + docent inloggen ---------- */
+/* ---------- Home ---------- */
 function home(){
   stud=null;unsubS&&unsubS();unsubS=null;
   const cols=['#ff5d73','#7a5cff','#1fb98a','#f59f00','#2a8cff'];
@@ -111,8 +109,7 @@ async function studentLogin(){
   if(lock().until>Date.now())return wait();
   const n=$('#sn').value.trim(),p=$('#sp').value;
   try{
-    const s=await getDocs(query(collection(db,'classes'),where('pw','==',p),limit(1)));
-    const c=s.docs[0];
+    const s=await getDocs(query(collection(db,'classes'),where('pw','==',p),limit(1))),c=s.docs[0];
     if(c&&(c.data().students||[]).some(x=>x.toLowerCase()===n.toLowerCase())){
       localStorage.removeItem(LK);stud={name:n,cls:{id:c.id,...c.data()}};
       unsubS=onSnapshot(doc(db,'classes',c.id),d=>{if(stud&&d.exists()){stud.cls={id:d.id,...d.data()};if(!$('#st'))tasks()}},()=>{});
@@ -124,12 +121,11 @@ async function studentLogin(){
   else{localStorage.setItem(LK,JSON.stringify({f}));say('#sm',`Naam of wachtwoord klopt niet. Nog ${5-f} ${5-f==1?'poging':'pogingen'}.`)}
 }
 async function teacherAuth(reg){
-  try{const e=$('#te').value.trim(),p=$('#tp').value;
-    await (reg?createUserWithEmailAndPassword:signInWithEmailAndPassword)(auth,e,p)}
+  try{const e=$('#te').value.trim(),p=$('#tp').value;await (reg?createUserWithEmailAndPassword:signInWithEmailAndPassword)(auth,e,p)}
   catch(e){say('#tm',AE[e.code]||'Er ging iets mis. Probeer het opnieuw.');if(e.code=='auth/operation-not-allowed')help(e)}
 }
 
-/* ---------- Leerling: opdrachten + dicteren ---------- */
+/* ---------- Leerling ---------- */
 function tasks(){
   const c=stud.cls,T=c.tasks||[];
   V.innerHTML=`<div class="bar"><h2>Hoi ${esc(stud.name)}! 👋</h2><button class="b o" data-a="out">Uitloggen</button></div><p class="sub">Klas ${esc(c.name)}</p>
@@ -154,9 +150,8 @@ function practice(t){
     $('#af').onsubmit=e=>{
       e.preventDefault();
       if(done){i++;return step()}
-      done=true;const good=$('#ai').value.trim().toLowerCase()===W[i].toLowerCase(),k=i;
+      done=true;const good=$('#ai').value.trim().toLowerCase()===W[i].toLowerCase(),k=i,fb=$('#fb');
       $('#ai').readOnly=true;$('#ab').textContent='Volgende';
-      const fb=$('#fb');
       if(good){ok++;fb.className='good';fb.textContent='Goed zo! ✓';setTimeout(()=>{if(i===k&&st.isConnected){i++;step()}},900)}
       else{fb.className='bad';fb.innerHTML=`Het woord is: <b>${esc(W[i])}</b>`}
     };
@@ -165,7 +160,7 @@ function practice(t){
   step();
 }
 
-/* ---------- Docent: klassen, leerlingen, opdrachten ---------- */
+/* ---------- Docent ---------- */
 function teacher(){
   const c=classes.find(x=>x.id===sel);
   if(!c){sel=null;
@@ -186,7 +181,6 @@ function teacher(){
   <section class="p" style="margin-top:16px"><h3>Opdrachten (${(c.tasks||[]).length})</h3>
    ${(c.tasks||[]).map((t,i)=>`<div class="row"><span><b>${esc(t.title)}</b> · ${t.words.length} woorden<br><small>${esc(t.words.join(', '))}</small></span><button class="b r" data-a="rt" data-i="${i}">Verwijderen</button></div>`).join('')||'<p class="sub">Nog geen opdrachten. Leerlingen zien ze zodra je ze maakt.</p>'}</section>`;
 }
-const list=s=>s.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
 
 /* ---------- Events ---------- */
 V.onsubmit=async e=>{
@@ -206,7 +200,7 @@ V.onsubmit=async e=>{
     if(add.length)up(c,{students:[...cur,...add]});else $('#nn').value='';
   }
   else if(id=='nt'&&c){
-    const w=list($('#tw').value.replace(/,/g,'\n'));
+    const w=list($('#tw').value);
     if(w.length)up(c,{tasks:[...(c.tasks||[]),{id:Date.now(),title:$('#tt').value.trim(),words:w}]});
   }
 };
@@ -219,7 +213,7 @@ V.onclick=async e=>{
   else if(a=='back'){sel=null;teacher()}
   else if(a=='rs')up(c,{students:c.students.filter((_,j)=>j!=i)});
   else if(a=='rt')up(c,{tasks:c.tasks.filter((_,j)=>j!=i)});
-  else if(a=='dc'&&confirm(`Klas "${c.name}" verwijderen?`)){await deleteDoc(doc(db,'classes',c.id));sel=null}
+  else if(a=='dc'&&confirm(`Klas "${c.name}" verwijderen?`)){await deleteDoc(doc(db,'classes',c.id)).catch(help);sel=null}
 };
 
 onAuthStateChanged(auth,u=>{
