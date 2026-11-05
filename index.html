@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SpellingWereld – spelling oefenen</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27><text y=%27.9em%27 font-size=%2790%27>✏️</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1b2a5c;--sky:#dff3ff;--sun:#ffc933;--coral:#ff5d73;--mint:#1fb98a;--grape:#7a5cff}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font:500 18px/1.4 'Baloo 2',system-ui,sans-serif;color:var(--ink);background:var(--sky) radial-gradient(circle at 1px 1px,#b9defa 1.5px,transparent 0) 0 0/28px 28px}
+main{max-width:980px;margin:0 auto;padding:20px}
+h2,h3{margin:.2em 0}
+.hero{text-align:center;padding:18px 0 26px}
+.hero p{margin:10px 0 0;font-size:1.15em}
+.tiles b{display:inline-grid;place-items:center;width:clamp(30px,6.6vw,54px);height:clamp(38px,8.4vw,66px);margin:3px;background:var(--c);color:#fff;border-radius:12px;font-size:clamp(22px,5vw,38px);font-weight:800;box-shadow:0 5px 0 rgba(27,42,92,.35)}
+.tiles b:nth-child(odd){transform:rotate(-3deg)}.tiles b:nth-child(even){transform:rotate(3deg)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+.p{background:#fff;border:3px solid var(--ink);border-radius:22px;padding:22px;box-shadow:0 7px 0 var(--ink);margin-bottom:8px}
+label{font-weight:700;display:block}
+input,textarea{width:100%;font:inherit;padding:10px 14px;margin:4px 0 12px;border:3px solid var(--ink);border-radius:14px;background:#fff;color:var(--ink)}
+:focus-visible{outline:4px solid var(--grape);outline-offset:2px}
+.b{font:inherit;font-weight:800;padding:9px 20px;border:3px solid var(--ink);border-radius:14px;background:var(--sun);color:var(--ink);cursor:pointer;box-shadow:0 4px 0 var(--ink)}
+.b:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.b.o{background:#fff}.b.r{background:var(--coral);color:#fff}.b.g{background:var(--mint);color:#fff}
+.b:disabled{opacity:.5;cursor:not-allowed}
+.msg{min-height:1.4em;margin:10px 0 0;font-weight:700;color:var(--coral)}
+.msg.ok{color:var(--mint)}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sub{margin:0 0 14px;opacity:.8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.card{font:inherit;text-align:left;cursor:pointer;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:20px;padding:18px;box-shadow:0 6px 0 var(--ink);display:flex;flex-direction:column;gap:4px;font-size:1.2em;font-weight:800}
+.card:nth-child(4n+1){background:var(--sun)}.card:nth-child(4n+2){background:#c9bfff}.card:nth-child(4n+3){background:#9ff0d4}.card:nth-child(4n){background:#ffc0c8}
+.card small{font-size:.7em;font-weight:600}
+.card:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{display:inline-flex;gap:8px;align-items:center;background:#eaf6ff;border:2px solid var(--ink);border-radius:99px;padding:2px 6px 2px 14px}
+.chip button{border:0;background:var(--coral);color:#fff;border-radius:50%;width:26px;height:26px;cursor:pointer;font-weight:800}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:2px dashed #b9defa}
+.empty{background:#fff;border:3px dashed var(--ink);border-radius:20px;padding:22px;text-align:center}
+.stage{background:#fff;border:3px solid var(--ink);border-radius:24px;padding:22px;box-shadow:0 7px 0 var(--ink);text-align:center;min-height:70vh;display:flex;flex-direction:column;align-items:center}
+.stage .bar{width:100%}
+.stage:fullscreen{background:var(--sky);border:0;border-radius:0;box-shadow:none;justify-content:center;min-height:100vh}
+.ear{font-size:clamp(64px,14vw,120px);width:clamp(120px,26vw,200px);height:clamp(120px,26vw,200px);border-radius:50%;border:4px solid var(--ink);background:var(--sun);box-shadow:0 8px 0 var(--ink);cursor:pointer;margin:18px 0 10px}
+.ear:active{transform:translateY(5px);box-shadow:0 3px 0 var(--ink)}
+.stage form{width:min(520px,100%)}
+.stage input{font-size:1.8em;text-align:center}
+#fb{font-size:1.5em;font-weight:800;min-height:1.6em}
+#fb.good{color:var(--mint)}#fb.bad{color:var(--coral)}
+pre{background:#eaf6ff;border:2px solid var(--ink);border-radius:12px;padding:12px;overflow:auto;font-size:14px}
+.score{font-size:clamp(40px,9vw,80px);font-weight:800;margin:20px 0}
+</style>
+</head>
+<body>
+<main id="v"><p class="sub">Laden…</p></main>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+import {getAuth,onAuthStateChanged,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+import {getFirestore,collection,doc,addDoc,updateDoc,deleteDoc,query,where,limit,getDocs,onSnapshot} from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+const app=initializeApp({apiKey:"AIzaSyB2eMl3UIVUpTIFLJE_uRU54jOyQnOMvS4",authDomain:"spellingwereld.firebaseapp.com",projectId:"spellingwereld",storageBucket:"spellingwereld.firebasestorage.app",messagingSenderId:"152537815183",appId:"1:152537815183:web:31c484cfd23d0e6547f8fa",measurementId:"G-G9SV6316VJ"});
+import("https://www.gstatic.com/firebasejs/10.14.1/firebase-analytics.js").then(m=>m.getAnalytics(app)).catch(()=>{});
+const auth=getAuth(app),db=getFirestore(app);
+const $=s=>document.querySelector(s),V=$('#v');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const say=(s,t,ok)=>{const e=$(s);if(e){e.textContent=t;e.className='msg'+(ok?' ok':'')}};
+const RULES=`rules_version = '2';
+service cloud.firestore {
+  match /databases/{db}/documents {
+    match /classes/{id} {
+      allow get: if true;
+      allow list: if request.query.limit <= 1
+                  || (request.auth != null && resource.data.teacherId == request.auth.uid);
+      allow create: if request.auth != null && request.resource.data.teacherId == request.auth.uid;
+      allow update, delete: if request.auth != null && resource.data.teacherId == request.auth.uid;
+    }
+  }
+}`;
+function help(err){
+  let p=$('#help');if(!p){p=document.createElement('section');p.id='help';p.className='p';p.style.marginTop='22px';V.appendChild(p)}
+  p.innerHTML=`<h3>Firebase is nog niet helemaal klaar (${esc((err&&err.code)||'fout')})</h3><p>Docent: controleer dit in de Firebase-console.</p><ol><li>Authentication → Sign-in method → zet <b>E-mail/wachtwoord</b> aan.</li><li>Firestore Database → <b>Database maken</b>.</li><li>Firestore Database → Regels → plak dit en klik op Publiceren:</li></ol><pre>${esc(RULES)}</pre><button class="b o" type="button" id="cp2">Regels kopiëren</button>`;
+  $('#cp2').onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(RULES);
+  p.scrollIntoView({behavior:'smooth'});
+}
+const up=(c,d)=>updateDoc(doc(db,'classes',c.id),d).catch(help);
+const AE={'auth/invalid-credential':'E-mail of wachtwoord klopt niet.','auth/email-already-in-use':'Dit e-mailadres heeft al een account.','auth/weak-password':'Kies een wachtwoord van minstens 6 tekens.','auth/invalid-email':'Dit e-mailadres is niet geldig.','auth/operation-not-allowed':'E-mail inloggen staat nog uit in Firebase (Authentication → Sign-in method).','auth/unauthorized-domain':'Dit domein staat nog niet bij Firebase → Authentication → Settings → Authorized domains.','auth/network-request-failed':'Geen verbinding. Probeer het nog een keer.','auth/too-many-requests':'Te veel pogingen. Probeer het later opnieuw.'};
+const LK='spw_lock',lock=()=>{try{return JSON.parse(localStorage.getItem(LK)||'{}')}catch(e){return{}}};
+let user=null,classes=[],sel=null,stud=null,unsub=null,unsubS=null;
+
+/* ---------- Home: leerling + docent inloggen ---------- */
+function home(){
+  stud=null;unsubS&&unsubS();unsubS=null;
+  const cols=['#ff5d73','#7a5cff','#1fb98a','#f59f00','#2a8cff'];
+  V.innerHTML=`<section class="hero"><div class="tiles" aria-label="SpellingWereld">${[...'SpellingWereld'].map((c,i)=>`<b style="--c:${cols[i%5]}">${c}</b>`).join('')}</div><p>Hoor het woord. Typ het goed. Word een spelling-kampioen!</p></section>
+  <div class="two">
+   <section class="p"><h2>Ik ben leerling</h2><p class="sub">Vul je naam en het wachtwoord van je klas in.</p>
+    <form id="sf"><label for="sn">Jouw naam</label><input id="sn" required autocomplete="off"><label for="sp">Klaswachtwoord</label><input id="sp" type="password" required autocomplete="off"><button class="b" id="sb">Naar mijn opdrachten</button><p class="msg" id="sm" role="alert"></p></form></section>
+   <section class="p"><h2>Ik ben docent</h2><p class="sub">Maak klassen, leerlingen en opdrachten aan.</p>
+    <form id="tf"><label for="te">E-mailadres</label><input id="te" type="email" required autocomplete="email"><label for="tp">Wachtwoord</label><input id="tp" type="password" required minlength="6" autocomplete="current-password"><button class="b" value="l">Inloggen</button> <button class="b o" value="r">Account maken</button><p class="msg" id="tm" role="alert"></p></form></section>
+  </div>`;
+  if(lock().until>Date.now())wait();
+}
+function wait(){
+  const b=$('#sb');b.disabled=true;
+  const t=setInterval(()=>{const s=Math.ceil((lock().until-Date.now())/1e3);
+    if(!$('#sb')||s<=0){clearInterval(t);if($('#sb')){$('#sb').disabled=false;say('#sm','Je mag het weer proberen.',1)}}
+    else say('#sm',`Te vaak fout. Wacht nog ${s} seconden.`)},250);
+}
+async function studentLogin(){
+  if(lock().until>Date.now())return wait();
+  const n=$('#sn').value.trim(),p=$('#sp').value;
+  try{
+    const s=await getDocs(query(collection(db,'classes'),where('pw','==',p),limit(1)));
+    const c=s.docs[0];
+    if(c&&(c.data().students||[]).some(x=>x.toLowerCase()===n.toLowerCase())){
+      localStorage.removeItem(LK);stud={name:n,cls:{id:c.id,...c.data()}};
+      unsubS=onSnapshot(doc(db,'classes',c.id),d=>{if(stud&&d.exists()){stud.cls={id:d.id,...d.data()};if(!$('#st'))tasks()}},()=>{});
+      return tasks();
+    }
+  }catch(e){say('#sm','Inloggen lukt nog niet. Vraag je juf of meester om de instellingen te controleren.');return help(e)}
+  const f=(lock().f||0)+1;
+  if(f>=5){localStorage.setItem(LK,JSON.stringify({f:0,until:Date.now()+6e4}));wait()}
+  else{localStorage.setItem(LK,JSON.stringify({f}));say('#sm',`Naam of wachtwoord klopt niet. Nog ${5-f} ${5-f==1?'poging':'pogingen'}.`)}
+}
+async function teacherAuth(reg){
+  try{const e=$('#te').value.trim(),p=$('#tp').value;
+    await (reg?createUserWithEmailAndPassword:signInWithEmailAndPassword)(auth,e,p)}
+  catch(e){say('#tm',AE[e.code]||'Er ging iets mis. Probeer het opnieuw.');if(e.code=='auth/operation-not-allowed')help(e)}
+}
+
+/* ---------- Leerling: opdrachten + dicteren ---------- */
+function tasks(){
+  const c=stud.cls,T=c.tasks||[];
+  V.innerHTML=`<div class="bar"><h2>Hoi ${esc(stud.name)}! 👋</h2><button class="b o" data-a="out">Uitloggen</button></div><p class="sub">Klas ${esc(c.name)}</p>
+  ${T.length?`<div class="grid">${T.map((t,i)=>`<button class="card" data-a="play" data-i="${i}">${esc(t.title)}<small>${t.words.length} woorden</small></button>`).join('')}</div>`:'<p class="empty">Er zijn nog geen opdrachten. Vraag het aan je juf of meester.</p>'}`;
+}
+function practice(t){
+  const W=[...t.words].sort(()=>Math.random()-.5);let i=0,ok=0,done=false;
+  V.innerHTML='<div class="stage" id="st"></div>';const st=$('#st');
+  const speak=()=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(W[i]);u.lang='nl-NL';u.rate=.8;const v=speechSynthesis.getVoices().find(x=>x.lang.toLowerCase().startsWith('nl'));if(v)u.voice=v;speechSynthesis.speak(u)};
+  const leave=()=>{speechSynthesis.cancel();document.fullscreenElement&&document.exitFullscreen();tasks()};
+  const step=()=>{
+    if(i>=W.length){
+      st.innerHTML=`<h2>Klaar met ${esc(t.title)}!</h2><div class="score">${ok} van ${W.length} goed ${ok==W.length?'🏆':ok>=W.length/2?'⭐':'💪'}</div><button class="b" id="back">Terug naar opdrachten</button>`;
+      $('#back').onclick=leave;return;
+    }
+    done=false;
+    st.innerHTML=`<div class="bar"><b>${esc(t.title)}</b><span>Woord ${i+1} van ${W.length}</span><span><button class="b o" id="fs" type="button">⛶ Volledig scherm</button> <button class="b o" id="x" type="button">Stoppen</button></span></div>
+    <button class="ear" id="hr" type="button" aria-label="Luister naar het woord">🔊</button><p class="sub">Klik op de luidspreker en typ wat je hoort.</p>
+    <form id="af"><input id="ai" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Typ het woord"><button class="b g" id="ab">Controleren</button></form><p id="fb" role="status"></p>`;
+    $('#hr').onclick=speak;$('#x').onclick=leave;
+    $('#fs').onclick=()=>document.fullscreenElement?document.exitFullscreen():st.requestFullscreen&&st.requestFullscreen();
+    $('#af').onsubmit=e=>{
+      e.preventDefault();
+      if(done){i++;return step()}
+      done=true;const good=$('#ai').value.trim().toLowerCase()===W[i].toLowerCase(),k=i;
+      $('#ai').readOnly=true;$('#ab').textContent='Volgende';
+      const fb=$('#fb');
+      if(good){ok++;fb.className='good';fb.textContent='Goed zo! ✓';setTimeout(()=>{if(i===k&&st.isConnected){i++;step()}},900)}
+      else{fb.className='bad';fb.innerHTML=`Het woord is: <b>${esc(W[i])}</b>`}
+    };
+    $('#ai').focus();speak();
+  };
+  step();
+}
+
+/* ---------- Docent: klassen, leerlingen, opdrachten ---------- */
+function teacher(){
+  const c=classes.find(x=>x.id===sel);
+  if(!c){sel=null;
+    V.innerHTML=`<div class="bar"><h2>Mijn klassen</h2><span>${esc(user.email)} <button class="b o" data-a="out">Uitloggen</button></span></div>
+    ${classes.length?`<div class="grid">${classes.map(k=>`<button class="card" data-a="open" data-id="${k.id}">${esc(k.name)}<small>${(k.students||[]).length} leerlingen · ${(k.tasks||[]).length} opdrachten</small></button>`).join('')}</div>`:'<p class="empty">Je hebt nog geen klas. Maak hieronder je eerste klas aan.</p>'}
+    <section class="p" style="margin-top:22px"><h3>Nieuwe klas</h3><form id="nc"><label for="cn">Klasnaam</label><input id="cn" required placeholder="bijv. Groep 5A"><label for="cp">Klaswachtwoord (de leerlingen typen dit in)</label><input id="cp" required minlength="4"><button class="b">Klas maken</button><p class="msg" id="cm" role="alert"></p></form></section>`;
+    return;
+  }
+  V.innerHTML=`<div class="bar"><button class="b o" data-a="back">← Alle klassen</button><button class="b r" data-a="dc">Klas verwijderen</button></div>
+  <h2>${esc(c.name)}</h2><p class="sub">Klaswachtwoord: <b>${esc(c.pw)}</b></p>
+  <div class="two">
+   <section class="p"><h3>Leerlingen (${(c.students||[]).length})</h3>
+    <form id="ns"><label for="nn">Naam toevoegen (meerdere? zet er een komma tussen)</label><input id="nn" required autocomplete="off"><button class="b">Toevoegen</button></form>
+    <div class="chips">${(c.students||[]).map((s,i)=>`<span class="chip">${esc(s)}<button data-a="rs" data-i="${i}" aria-label="Verwijder ${esc(s)}">×</button></span>`).join('')||'<span class="sub">Nog geen leerlingen.</span>'}</div></section>
+   <section class="p"><h3>Nieuwe opdracht</h3>
+    <form id="nt"><label for="tt">Titel</label><input id="tt" required placeholder="bijv. Week 3: au en ou"><label for="tw">Woorden (één per regel)</label><textarea id="tw" rows="6" required></textarea><button class="b">Opdracht maken</button></form></section>
+  </div>
+  <section class="p" style="margin-top:16px"><h3>Opdrachten (${(c.tasks||[]).length})</h3>
+   ${(c.tasks||[]).map((t,i)=>`<div class="row"><span><b>${esc(t.title)}</b> · ${t.words.length} woorden<br><small>${esc(t.words.join(', '))}</small></span><button class="b r" data-a="rt" data-i="${i}">Verwijderen</button></div>`).join('')||'<p class="sub">Nog geen opdrachten. Leerlingen zien ze zodra je ze maakt.</p>'}</section>`;
+}
+const list=s=>s.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean);
+
+/* ---------- Events ---------- */
+V.onsubmit=async e=>{
+  e.preventDefault();const id=e.target.id,c=classes.find(x=>x.id===sel);
+  if(id=='sf')studentLogin();
+  else if(id=='tf')teacherAuth(e.submitter&&e.submitter.value=='r');
+  else if(id=='nc'){
+    const name=$('#cn').value.trim(),pw=$('#cp').value.trim();
+    try{
+      const s=await getDocs(query(collection(db,'classes'),where('pw','==',pw),limit(1)));
+      if(!s.empty)return say('#cm','Dit wachtwoord wordt al gebruikt. Kies een ander.');
+      await addDoc(collection(db,'classes'),{name,pw,teacherId:user.uid,students:[],tasks:[]});
+    }catch(err){say('#cm','Opslaan is niet gelukt.');help(err)}
+  }
+  else if(id=='ns'&&c){
+    const cur=c.students||[],add=list($('#nn').value).filter(n=>!cur.some(x=>x.toLowerCase()==n.toLowerCase()));
+    if(add.length)up(c,{students:[...cur,...add]});else $('#nn').value='';
+  }
+  else if(id=='nt'&&c){
+    const w=list($('#tw').value.replace(/,/g,'\n'));
+    if(w.length)up(c,{tasks:[...(c.tasks||[]),{id:Date.now(),title:$('#tt').value.trim(),words:w}]});
+  }
+};
+V.onclick=async e=>{
+  const b=e.target.closest('[data-a]');if(!b)return;
+  const a=b.dataset.a,i=+b.dataset.i,c=classes.find(x=>x.id===sel);
+  if(a=='out'){if(stud)home();else signOut(auth)}
+  else if(a=='play')practice(stud.cls.tasks[i]);
+  else if(a=='open'){sel=b.dataset.id;teacher()}
+  else if(a=='back'){sel=null;teacher()}
+  else if(a=='rs')up(c,{students:c.students.filter((_,j)=>j!=i)});
+  else if(a=='rt')up(c,{tasks:c.tasks.filter((_,j)=>j!=i)});
+  else if(a=='dc'&&confirm(`Klas "${c.name}" verwijderen?`)){await deleteDoc(doc(db,'classes',c.id));sel=null}
+};
+
+onAuthStateChanged(auth,u=>{
+  user=u;unsub&&unsub();unsub=null;
+  if(u)unsub=onSnapshot(query(collection(db,'classes'),where('teacherId','==',u.uid)),s=>{classes=s.docs.map(d=>({id:d.id,...d.data()}));teacher()},e=>{classes=[];teacher();help(e)});
+  else if(!stud){sel=null;home()}
+});
+</script>
+</body>
+</html>
